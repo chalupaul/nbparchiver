@@ -18,13 +18,15 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libffi-dev \
     liblzma-dev \
     python3-openssl \
-    git
+    git \
+    pipx
 
 curl https://pyenv.run | bash
 
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
-echo 'pyenv 1>/dev/null 2>&1 && eval "$(pyenv init -)"' >> ~/.bashrc
+echo 'export PATH="$PYENV_ROOT/bin:$HOME/.local/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(pyenv init --path)"' >> ~/.bashrc
+echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
 
-exec "$SHELL"
+source ~/.bashrc
 pyenv install $(cat .python-version)
