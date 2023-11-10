@@ -54,6 +54,13 @@ class Podcast(object):
         if value is None:
             return Empty()
         return value
+    
+    @staticmethod
+    def uuid_hash(data):
+        uuid_url = Podcast.__retrieve('guid', data).content
+        hash = hashlib.md5(uuid_url)
+        return hash
+
 
     @staticmethod
     def get_transcript_from_url(podcast_url):
