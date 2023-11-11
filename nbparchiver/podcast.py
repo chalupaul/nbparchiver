@@ -120,10 +120,6 @@ class Podcast(object):
         self.transcript = Podcast.get_transcript_from_url(self.link)
 
         self.hash = Podcast.get_hash(data)
-        for k in config.keys():
-            if k.startswith('_'):
-                continue
-            Path(config['k']).mkdir(parents=True, exist_ok=True)
 
     def save(self):
         self.mp3.save()

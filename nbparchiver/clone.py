@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from rss_parser import Parser
 import requests
 from jinja2 import Environment, FileSystemLoader
@@ -12,6 +13,10 @@ rss = Parser.parse(response.text)
 items = rss.channel.items
 items.reverse()
 
+for k in config.keys():
+    if k.startswith('_'):
+        continue
+    Path(config[k]).mkdir(parents=True, exist_ok=True)
 
 podcasts = []
 for item in items:
