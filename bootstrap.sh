@@ -23,12 +23,14 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
     pipx
 
 curl https://pyenv.run | bash
-
+export PYENV_ROOT="$HOME/.pyenv"
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+export PATH="$PYENV_ROOT/bin:$HOME/.local/bin:$PATH"
 echo 'export PATH="$PYENV_ROOT/bin:$HOME/.local/bin:$PATH"' >> ~/.bashrc
+eval "$(pyenv init --path)"
 echo 'eval "$(pyenv init --path)"' >> ~/.bashrc
+eval "$(pyenv virtualenv-init -)"
 echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
-source ~/.bashrc
 pyenv install $(cat .python-version)
 pipx ensurepath
 pipx install poetry
