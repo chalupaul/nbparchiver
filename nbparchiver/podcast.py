@@ -90,12 +90,12 @@ class Podcast(object):
     def dump(self):
         checksum = self.uuid_hash(self.guid_url)
         cache_file = os.path.join(self.cache_dir, checksum)
-        with open(cache_file, mode='w', encoding='utf-8') as f:
+        with open(cache_file, mode='wb', encoding='utf-8') as f:
             pickle.dump(self, f)
 
     @staticmethod  
     def load(cache_file):
-        with open(cache_file, mode='r', encoding='utf-8') as f:
+        with open(cache_file, mode='rb', encoding='utf-8') as f:
             p = pickle.load(f)
             return p
 
