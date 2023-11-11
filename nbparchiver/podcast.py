@@ -124,8 +124,7 @@ class Podcast(object):
         self.hash = Podcast.get_hash(data)
 
     def save(self):
-        if self.mp3 is not None:
-            self.mp3.save()
+        self.mp3.save()
         if self.transcript is not None:
             self.transcript.save()
 
