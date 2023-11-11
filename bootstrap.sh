@@ -1,6 +1,8 @@
-DEBIAN_FRONTEND=noninteractive apt-get update -y
-DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
-DEBIAN_FRONTEND=noninteractive apt-get install -y \
+#!/usr/bin/env bash
+
+sudo DEBIAN_FRONTEND=noninteractive apt-get update -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
     make \
     build-essential \
     libssl-dev \
@@ -30,3 +32,5 @@ echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
 
 source ~/.bashrc
 pyenv install $(cat .python-version)
+pipx ensurepath
+pipx install poetry
