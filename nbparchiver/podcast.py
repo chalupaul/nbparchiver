@@ -102,6 +102,8 @@ class Podcast(object):
         return LocalFile(links[0])
     
     def dump(self):
+        if None in [self.mp3, self.transcript]:
+            return
         cache_file = os.path.join(config['cache_dir'], self.hash)
         with open(cache_file, mode='wb') as f:
             pickle.dump(self, f)
