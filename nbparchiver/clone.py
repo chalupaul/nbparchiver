@@ -9,7 +9,11 @@ rss_url = 'https://nakedbiblepodcast.com/feed/podcast/'
 
 response = requests.get(rss_url)
 
-rss = Parser.parse(response.text)
+try:
+    rss = Parser.parse(response.text)
+except KeyError:
+    print("Looks like you've been blocked. Come from a new IP and try again.")
+    exit()
 items = rss.channel.items
 items.reverse()
 
