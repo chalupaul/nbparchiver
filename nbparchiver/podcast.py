@@ -88,7 +88,7 @@ class Podcast(object):
         return LocalFile(links[0])
     
     def dump(self):
-        checksum = self.uuid_hash()
+        checksum = self.uuid_hash(self.guid_url)
         cache_file = os.path.join(self.cache_dir, checksum)
         with open(cache_file, mode='w', encoding='utf-8') as f:
             pickle.dump(self, f)
