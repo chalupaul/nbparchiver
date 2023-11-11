@@ -44,7 +44,9 @@
 <body>
 
 <h2>Naked Bible Podcast Archive</h2>
-<p>Below are the shows for the Naked Bible Podcast. This data has been archived and will not be updated. Thank you, Dr. Heiser. We miss you.</p>
+<p>Below are the shows for the Naked Bible Podcast. This data has been archived and will not be updated. </p>
+<p>Thank you, Dr. Heiser. We miss you.</p>
+<p>You can find a playlist of all the podcasts in order <a href="content/naked_bible_podcast.m3u">here</a></p>
 {% for item in items -%}
     <button class="accordion">{{ item.title }}</button>
     <div class="panel" id="{{ item.guid_url }}">
