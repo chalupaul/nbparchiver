@@ -13,7 +13,7 @@ cache_dir = os.path.join(base_dir, "cache")
 paths = ['out', 'content']
 out_dir = os.path.join(base_dir, paths[0])
 content_dir = os.path.join(out_dir, paths[1])
-local = os.path.join(*paths)
+local = paths[1]
 
 config = {
     "app_dir": app_dir,
