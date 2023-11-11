@@ -25,7 +25,7 @@ class LocalFile(object):
         self.file_name = url.split('/')[-1]
         cwd = os.path.dirname(os.path.realpath(__file__))
         parent = os.path.dirname(cwd)
-        self.local = os.path.join(LocalFile.output_dir, self.file_name)
+        self.local = os.path.join(self.output_dir, self.file_name)
         self.loc = os.path.join(parent, self.local)
         
 
