@@ -43,9 +43,8 @@
 </head>
 <body>
 
-<h2>Accordion with symbols</h2>
-<p>In this example we have added a "plus" sign to each button. When the user clicks on the button, the "plus" sign is replaced with a "minus" sign.</p>
-
+<h2>Naked Bible Podcast Archive</h2>
+<p>Below are the shows for the Naked Bible Podcast. This data has been archived and will not be updated.</p>
 {% for item in items -%}
     <button class="accordion">{{ item.title }}</button>
     <div class="panel" id="{{ item.guid_url }}">

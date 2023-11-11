@@ -13,6 +13,8 @@ rss = Parser.parse(response.text)
 items = rss.channel.items
 items.reverse()
 
+playlist = ['#EXTM3U']
+
 for k in config.keys():
     if k.startswith('_'):
         continue
@@ -31,6 +33,7 @@ for item in items:
         p = Podcast.load(cache_file)
         print(p.title)
     podcasts.append(p)
+    playlist.append(p.mp3.file_name)
 
 
 tpls_dir = os.path.join(config['app_dir'], 'tpls')
@@ -42,3 +45,7 @@ index_file = os.path.join(config['out_dir'], 'index.html')
 with open(index_file, mode='w', encoding='utf-8') as f:
     f.write(content)
 
+playlist_file = os.path.join(config['content_dir'], 'naked_bible_podcast.m3u')
+with open(playlist_file, mode='w', encoding='utf-8') as f:
+    playlist_content = '\n'.join(playlist)
+    f.write(playlist_content)
