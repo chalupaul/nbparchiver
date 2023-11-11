@@ -31,6 +31,7 @@ if [[ ${DONE} == '' ]]; then
     echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
     DONE="YES" $SHELL ${0}
 else
+    source ~/.bashrc
     pyenv install $(cat .python-version)
     pipx ensurepath
     pipx install poetry
