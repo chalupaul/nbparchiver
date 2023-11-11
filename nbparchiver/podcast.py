@@ -95,6 +95,8 @@ class Podcast(object):
                 if l is None or l['href'].find('.pdf') == -1:
                     continue
                 links.append(l['href'])
+        if len(links) == 0:
+            return None
         return LocalFile(links[0])
     
     def dump(self):
@@ -122,8 +124,10 @@ class Podcast(object):
         self.hash = Podcast.get_hash(data)
 
     def save(self):
-        self.mp3.save()
-        self.transcript.save()
+        if self.mp3 is not None:
+            self.mp3.save()
+        if self.transcript is not None:
+            self.transcript.save()
 
     def to_json(self):
         members = dict(inspect.getmembers(self))

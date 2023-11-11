@@ -31,7 +31,6 @@ for item in items:
         p = Podcast.load(cache_file)
         print(p.title)
     podcasts.append(p)
-    break
 
 
 tpls_dir = os.path.join(config['app_dir'], 'tpls')
