@@ -7,6 +7,24 @@ import hashlib
 
 from bs4 import BeautifulSoup
 
+app_dir = os.path.dirname(os.path.realpath(__file__))
+base_dir = os.path.dirname(app_dir)
+cache_dir = os.path.join(base_dir, "cache")
+paths = ['out', 'content']
+out_dir = os.path.join(base_dir, paths[0])
+content_dir = os.path.join(out_dir, paths[1])
+local = os.path.join(*paths)
+
+config = {
+    "app_dir": app_dir,
+    "base_dir": base_dir,
+    "out_dir": out_dir,
+    "content_dir": content_dir,
+    "_local_dir": local,
+    "cache_dir": cache_dir
+}
+
+
 class Empty(object):
     def __init__(self):
         self.content = None
@@ -19,15 +37,11 @@ class LocalFile(object):
     local: str
     
     def __init__(self, url):
-        output_dir = os.path.join('out', 'content')
         self.url = url
         self.file_name = url.split('/')[-1]
-        cwd = os.path.dirname(os.path.realpath(__file__))
-        parent = os.path.dirname(cwd)
-        self.local = os.path.join(output_dir, self.file_name)
-        self.loc = os.path.join(parent, self.local)
+        self.local = os.path.join(config['_local_dir'], self.file_name)
+        self.loc = os.path.join(config['content_dir'], self.file_name)
         
-
     def __str__(self):
         return f"{self.file_name}: {self.url}, {self.loc}"
     
@@ -84,7 +98,7 @@ class Podcast(object):
         return LocalFile(links[0])
     
     def dump(self):
-        cache_file = os.path.join(self.cache_dir, self.hash)
+        cache_file = os.path.join(config['cache_dir'], self.hash)
         with open(cache_file, mode='wb') as f:
             pickle.dump(self, f)
 
@@ -106,12 +120,10 @@ class Podcast(object):
         self.transcript = Podcast.get_transcript_from_url(self.link)
 
         self.hash = Podcast.get_hash(data)
-        self.cwd = os.path.dirname(os.path.realpath(__file__))
-        self.cache_dir = os.path.join(self.cwd, 'cache')
-        Path(self.cache_dir).mkdir(parents=True, exist_ok=True)
-
-        self.content_dir = os.path.join(self.cwd, 'out', 'content')
-        Path(self.content_dir).mkdir(parents=True, exist_ok=True)
+        for k in config.keys():
+            if k.startswith('_'):
+                continue
+            Path(config['k']).mkdir(parents=True, exist_ok=True)
 
     def save(self):
         self.mp3.save()
