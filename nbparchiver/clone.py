@@ -22,13 +22,15 @@ Path(cache_dir).mkdir(parents=True, exist_ok=True)
 
 podcasts = []
 for item in items:
-    checksum = Podcast.get_guid(item)
+    checksum = Podcast.get_hash(item)
     cache_file = os.path.join(cache_dir, checksum)
     if not os.path.exists(cache_file):
         p = Podcast(item)
         p.dump()
     else:
+        print("Loading from pickle...")
         p = Podcast.load(cache_file)
+        print(p.title)
     podcasts.append(p)
     break
 

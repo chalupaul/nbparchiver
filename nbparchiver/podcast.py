@@ -59,19 +59,14 @@ class Podcast(object):
         return value
     
     @staticmethod
-    def uuid_hash(data):
-        guid = data.encode('utf-8')
-        hash = hashlib.md5(guid).hexdigest()
-        return hash
-    
-    @staticmethod
     def get_guid_url(data):
         return Podcast.__retrieve('guid', data).content
     
     @staticmethod
-    def get_guid(data):
-        url = Podcast.get_guid_url(data)
-        return Podcast.uuid_hash(url)
+    def get_hash(data):
+        url = Podcast.get_guid_url(data).encode('utf-8')
+        hash = hashlib.md5(url).hexdigest()
+        return hash
 
     @staticmethod
     def get_transcript_from_url(podcast_url):
@@ -88,8 +83,7 @@ class Podcast(object):
         return LocalFile(links[0])
     
     def dump(self):
-        checksum = self.uuid_hash(self.guid_url)
-        cache_file = os.path.join(self.cache_dir, checksum)
+        cache_file = os.path.join(self.cache_dir, self.hash)
         with open(cache_file, mode='wb') as f:
             pickle.dump(self, f)
 
@@ -102,7 +96,7 @@ class Podcast(object):
     def __init__(self, data):
         self.pub_date = self.__retrieve('pub_date', data).content
         self.description = self.__retrieve('description', data).content
-        self.guid_url = Podcast.get_guid(data)
+        self.guid_url = Podcast.get_guid_url(data)
         self.link = self.__retrieve('link', data).content
         self.title = self.__retrieve('title', data).content
 
@@ -110,6 +104,7 @@ class Podcast(object):
         self.mp3 = LocalFile(mp3_url)
         self.transcript = Podcast.get_transcript_from_url(self.link)
 
+        self.hash = Podcast.get_hash(data)
         self.cwd = os.path.dirname(os.path.realpath(__file__))
         self.cache_dir = os.path.join(self.cwd, 'cache')
         Path(self.cache_dir).mkdir(parents=True, exist_ok=True)
