@@ -54,6 +54,7 @@ class LocalFile(object):
             return
         print(f"fetching {self.url}...")
         r = requests.get(self.url)
+        print(r.status_code)
         with open(self.loc, 'wb') as outfile:
             outfile.write(r.content)
         
