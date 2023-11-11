@@ -29,9 +29,12 @@ if [[ ${DONE} == '' ]]; then
     echo 'export PATH="$PYENV_ROOT/bin:$HOME/.local/bin:$PATH"' >> ~/.bashrc
     echo 'eval "$(pyenv init --path)"' >> ~/.bashrc
     echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
+    DONE="YES" $SHELL ${0}
+else
+    pyenv install $(cat .python-version)
+    pipx ensurepath
+    pipx install poetry
+    poetry install
 fi
-DONE="YES" $SHELL ${0}
-pyenv install $(cat .python-version)
-pipx ensurepath
-pipx install poetry
-poetry install
+
+exec $SHELL
