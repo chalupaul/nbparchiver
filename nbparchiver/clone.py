@@ -26,12 +26,12 @@ for item in items:
     cache_file = os.path.join(config['cache_dir'], checksum)
     if not os.path.exists(cache_file):
         p = Podcast(item)
-        p.save()
         p.dump()
     else:
         print("Loading from pickle...")
         p = Podcast.load(cache_file)
         print(p.title)
+    p.save()
     podcasts.append(p)
     playlist.append(p.mp3.file_name)
 

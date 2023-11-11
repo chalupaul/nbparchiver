@@ -50,6 +50,7 @@ class LocalFile(object):
     
     def save(self):
         if os.path.exists(self.loc):
+            print(f"{self.loc} exists. Skipping!")
             return
         print(f"fetching {self.url}...")
         r = requests.get(self.url)
