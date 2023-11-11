@@ -41,6 +41,7 @@ environment = Environment(loader=FileSystemLoader(tpls_dir))
 template = environment.get_template("index.tpl")
 content = template.render(items=podcasts)
 
-with open('index.html', mode='w', encoding='utf-8') as f:
+index_file = os.path.join(cwd, 'content', 'index.html')
+with open(index_file, mode='w', encoding='utf-8') as f:
     f.write(content)
 
