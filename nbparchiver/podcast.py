@@ -13,19 +13,18 @@ class Empty(object):
         self.attributes = {'url': None}
 
 class LocalFile(object):
-    output_dir: str
     url: str
     file_name: str
     loc: str
     local: str
     
     def __init__(self, url):
-        self.output_dir = os.path.join('out', 'content')
+        output_dir = os.path.join('out', 'content')
         self.url = url
         self.file_name = url.split('/')[-1]
         cwd = os.path.dirname(os.path.realpath(__file__))
         parent = os.path.dirname(cwd)
-        self.local = os.path.join(self.output_dir, self.file_name)
+        self.local = os.path.join(output_dir, self.file_name)
         self.loc = os.path.join(parent, self.local)
         
 
