@@ -110,6 +110,10 @@ class Podcast(object):
         self.cache_dir = os.path.join(self.cwd, 'cache')
         Path(self.cache_dir).mkdir(parents=True, exist_ok=True)
 
+    def save(self):
+        self.mp3.save()
+        self.transcript.save()
+        
     def to_json(self):
         members = dict(inspect.getmembers(self))
         keys = members['__annotations__'].keys()
