@@ -26,6 +26,7 @@ for item in items:
     cache_file = os.path.join(cache_dir, checksum)
     if not os.path.exists(cache_file):
         p = Podcast(item)
+        p.save()
         p.dump()
     else:
         print("Loading from pickle...")

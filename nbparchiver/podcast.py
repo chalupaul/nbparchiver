@@ -37,6 +37,7 @@ class LocalFile(object):
     def save(self):
         if os.path.exists(self.loc):
             return
+        print(f"fetching {self.url}...")
         r = requests.get(self.url)
         with open(self.loc, 'wb') as outfile:
             outfile.write(r.content)
