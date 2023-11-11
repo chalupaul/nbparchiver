@@ -30,7 +30,7 @@ echo 'export PATH="$PYENV_ROOT/bin:$HOME/.local/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(pyenv init --path)"' >> ~/.bashrc
 echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
 
-source ~/.bashrc
+. ~/.bashrc
 pyenv install $(cat .python-version)
 pipx ensurepath
 pipx install poetry

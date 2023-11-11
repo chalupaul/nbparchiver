@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "nbpclone"
+name = "nbparchiver"
 version = "0.1.0"
-description = "A nakedbiblepodcast cloner"
+description = "A nakedbiblepodcast archiver"
 authors = ["chalupaul <me@chalupaul.com>"]
 license = "MIT"
 readme = "README.md"

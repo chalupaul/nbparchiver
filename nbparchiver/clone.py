@@ -4,6 +4,7 @@ from rss_parser import Parser
 import requests
 from jinja2 import Environment, FileSystemLoader
 from podcast import Podcast
+import pickle
 
 rss_url = 'https://nakedbiblepodcast.com/feed/podcast/'
 
@@ -21,12 +22,14 @@ Path(cache_dir).mkdir(parents=True, exist_ok=True)
 
 podcasts = []
 for item in items:
-    checksum = Podcast.uuid_hash(item)
+    checksum = Podcast.get_guid(item)
     cache_file = os.path.join(cache_dir, checksum)
     if not os.path.exists(cache_file):
         p = Podcast(item)
-        podcasts.append(p)
-        Path(cache_file).touch()
+        p.dump()
+    else:
+        p = Podcast.load(cache_file)
+    podcasts.append(p)
     break
 
 
